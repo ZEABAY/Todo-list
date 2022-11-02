@@ -7,5 +7,5 @@
 2. Edit To Do (Yapılacak Düzenleme) 
 3. Delete To Do (Yapılacak silme) 
 4. Used Local Storage (Local Storage Kullanıldı)
-
+5. Responsive tasarım
 ### ZEABAY
