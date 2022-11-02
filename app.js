@@ -105,6 +105,7 @@ function deleteToDo(e) {
 
     })
     localStorage.setItem("todos", JSON.stringify(todos));
+    document.location.reload();
 }
 
 function editToDo(e) {
