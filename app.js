@@ -1,44 +1,49 @@
-
+// Global Değişkenler
 const form = document.querySelector('#new-task');
 const input = document.querySelector('#new-task-input');
 const list_el = document.querySelector('#tasks');
 
+counter = 0;
+
 eventListeners();
 
 function eventListeners() {
-    form.addEventListener('submit', addTodo);
+    form.addEventListener('submit', checkToDo);
     document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
     list_el.addEventListener("click", toDoActions);
 }
 
-function addTodo(e) {
+
+//ToDo ekleme
+function checkToDo(e) {
     e.preventDefault();
 
     const new_todo = input.value;
+
+    //ToDo text dolu mu kontrolü
     if (!new_todo) {
         alert("Please fill out the task")
         return;
     } else {
-        addIt(new_todo);
+        addToDo(new_todo);
     }
+
+    //ToDo eklendikten sonra text inputu temizlemek
     input.value = "";
 
 }
 
-function addIt(new_todo) {
+// ToDo ekleme
+function addToDo(new_todo) {
     addTodoUI(new_todo);
     addTodoStorage(new_todo);
 }
 
-function clear() {
-
-    let todos = getTodosFromStorage();
-    todos = "";
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
-
 function addTodoUI(new_todo) {
-    //Buttons
+    //Görsel Olarak ToDo ekleme
+
+
+    //Butonlar
 
     const todo_edit = document.createElement("input");
     todo_edit.classList.add("edit");
@@ -68,19 +73,22 @@ function addTodoUI(new_todo) {
     todo_content.classList.add("content");
     todo_content.appendChild(todo_input);
 
-    //Merge
+    //Birleştir
 
     const todo = document.createElement("div");
     todo.classList.add("todo");
-
+    todo.setAttribute("id", counter);
     todo.appendChild(todo_content);
     todo.appendChild(todo_actions);
 
-    list_el.appendChild(todo);
 
+    //list_el 'e ekle (görünmesi için gereken adım)
+    list_el.appendChild(todo);
+    counter++;
 
 }
 
+//ToDo buttonlarının görevleri
 function toDoActions(e) {
     if (e.target.className === "delete") {
         deleteToDo(e);
@@ -90,27 +98,34 @@ function toDoActions(e) {
     }
 }
 
-function deleteToDo(e) {
 
+//ToDo silme
+function deleteToDo(e) {
+    //ToDo 'yu görsel olarak sil
     e.target.parentElement.parentElement.remove();
-    const text = e.target.parentElement.parentElement.children[0].children[0].value;
+
+
+    const willBeDelete = e.target.parentElement.parentElement.id.id;
 
     let todos = getTodosFromStorage();
 
-    todos.forEach(function (todo, index) {
+    //ToDo yu Localden sil
+    todos.splice(willBeDelete, 1);
 
-        if (todo == text) {
-            todos.splice(index, 1);
-        }
-
-    })
     localStorage.setItem("todos", JSON.stringify(todos));
+
+    //Counterin sıfırlanıp idlerin tekrar atanması için reload 
+    //sadece daha iyi bir yol bulana kadar :)
     document.location.reload();
 }
 
+
+//ToDo Düzenle
 function editToDo(e) {
+    //Buton switch mantığı ile kullanılıyor
 
     if (e.target.value === "edit") {
+        //Görsel olarak düzenle
         task_input = e.target.parentElement.parentElement.children[0].children[0];
         task_input.removeAttribute("readonly", "readonly");
         task_input.focus();
@@ -118,20 +133,16 @@ function editToDo(e) {
         e.target.value = "save";
 
     } else if (e.target.value === "save") {
+        //düzenleme bitti local storage kaydet
 
         task_input.setAttribute("readonly", "readonly");
-
+        const willBeEdit = e.target.parentElement.parentElement.id;
 
         text = task_input.value;
 
         let todos = getTodosFromStorage();
-        for (let index = 0; index < localStorage.getItem("todos").length; index++) {
-            if (todos[index] == old) {
-                todos[index] = text;
-                break;
-            }
 
-        }
+        todos[willBeEdit] = text;
 
 
 
@@ -143,6 +154,8 @@ function editToDo(e) {
 
 }
 
+
+//local storage de bulunan ToDo ları varsa al yoksa boş array oluştur
 function getTodosFromStorage() {
 
     let todos;
@@ -155,6 +168,8 @@ function getTodosFromStorage() {
     return todos;
 
 }
+
+//ToDo ları storage ekle
 function addTodoStorage(new_todo) {
     let todos = getTodosFromStorage();
 
@@ -164,6 +179,7 @@ function addTodoStorage(new_todo) {
 
 }
 
+//ToDo ları görsel olarak ekle
 function loadAllTodosToUI() {
     let todos = getTodosFromStorage();
 
@@ -171,4 +187,3 @@ function loadAllTodosToUI() {
         addTodoUI(todo);
     })
 }
-// innerHTML ??
