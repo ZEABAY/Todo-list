@@ -1,0 +1,192 @@
+:root {
+    --dark: #374151;
+    --darker: #1F2937;
+    --darker2: #1d263f;
+    --darkest: #111827;
+    --dgrey: #2a375c;
+    --grey: #6B7280;
+    --pink: #EC4899;
+    --purple: #8B5CF6;
+    --light: #EEE;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Fira sans", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--dark);
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 5px 5px 10px var(--darker);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--darker2);
+    border-radius: 10px;
+    border: 4px solid var(--dgrey);
+}
+
+header {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    transition: 1s;
+    color: #EEE;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-family: "Comic Sans MS", sans-serif;
+    margin-bottom: 2rem;
+    color: var(--gray);
+}
+
+#new-task {
+    display: flex;
+}
+
+input,
+button {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+#new-task-input {
+    flex: 1 1 0%;
+    background-color: var(--darker);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    color: var(--light);
+    font-size: 1.25rem;
+}
+
+#new-task-input::placeholder {
+    color: var(--grey);
+    transition: 1.5s;
+}
+
+#new-task-submit {
+    color: var(--pink);
+    font-size: 1.25rem;
+    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+#new-task-submit:hover {
+    opacity: 0.75;
+
+}
+
+#new-task-submit:active {
+    opacity: 0.5;
+}
+
+main {
+    flex: 1 1 0%;
+    padding: 2rem 1rem;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    color: #EEE;
+    transition: 1s;
+
+}
+
+.task-list {
+    margin-top: 2rem;
+}
+
+.task-list h2 {
+    font-size: 2.5rem;
+    font-family: "Comic Sans MS", sans-serif;
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.todo .content {
+    flex: 1 1 0%;
+}
+
+#tasks .todo {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--darkest);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+#tasks .todo .text {
+    color: var(--light);
+    font-size: 1.125rem;
+    width: 100%;
+    display: block;
+}
+
+
+#tasks .todo .content .text:not(:read-only) {
+    color: var(--purple);
+}
+
+#tasks .todo .actions {
+    display: flex;
+    margin: 0 -0.5rem;
+}
+
+.todo .actions input {
+    cursor: pointer;
+    margin: 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.4s;
+}
+
+.todo .actions input:hover {
+    opacity: 0.75;
+}
+
+.todo .actions input:active {
+    opacity: 0.5;
+}
+
+.todo .actions .edit {
+    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.todo .actions .delete {
+    color: #da2525;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/*.todo .content input {
+    color: #EEE;
+}*/
