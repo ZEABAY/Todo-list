@@ -101,22 +101,49 @@ function toDoActions(e) {
 
 //ToDo silme
 function deleteToDo(e) {
+
+    const selected = e.target.parentElement.parentElement;
+
     //ToDo 'yu görsel olarak sil
-    e.target.parentElement.parentElement.remove();
+    // 
 
 
-    const willBeDelete = e.target.parentElement.parentElement.id.id;
 
     let todos = getTodosFromStorage();
-
     //ToDo yu Localden sil
-    todos.splice(willBeDelete, 1);
+    let i = 0;
+    for (i = selected.id; i < counter; i++) {
+        let a = document.getElementById(i);
+        if (i > selected.id) {
 
+            a.removeAttribute("id");
+            a.setAttribute("id", i - 1);
+            console.log(a);
+        }
+
+    }
+    counter--;
+    selected.remove();
+
+
+
+
+    /*
+    bilmediğim bir sebepten yanlış çalışıyor
+    for (let i = selected.id; i < counter; i++) {
+ 
+         let a = document.getElementById(i+1);
+         console.log(a);
+ 
+ 
+    }
+     
+     */
+
+
+    todos.splice(selected.id, 1);
     localStorage.setItem("todos", JSON.stringify(todos));
 
-    //Counterin sıfırlanıp idlerin tekrar atanması için reload 
-    //sadece daha iyi bir yol bulana kadar :)
-    document.location.reload();
 }
 
 
